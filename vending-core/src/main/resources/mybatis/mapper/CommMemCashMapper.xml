@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ipeaksoft.moneyday.core.mapper.CommMemCashMapper">
+	<resultMap id="BaseResultMap"
+		type="com.ipeaksoft.moneyday.core.entity.CommMemCash">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="orderid" property="orderid" jdbcType="VARCHAR" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="openid" property="openid" jdbcType="VARCHAR" />
+		<result column="real_name" property="realName" jdbcType="VARCHAR" />
+		<result column="amount" property="amount" jdbcType="INTEGER" />
+		<result column="totalcredits" property="totalcredits" jdbcType="DOUBLE" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="operate_time" property="operateTime" jdbcType="TIMESTAMP" />
+		<result column="operate_result" property="operateResult"
+			jdbcType="VARCHAR" />
+		<result column="operator" property="operator" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="alipay_account" property="alipayAccount"
+			jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="TINYINT" />
+		<result column="token" property="token" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="OrderResultMap"
+		type="com.ipeaksoft.moneyday.core.entity.UserCashOrder">
+		<result column="day" property="day" />
+		<result column="amount" property="amount" />
+		<result column="status" property="status" />
+		<result column="times" property="times" />
+		<result column="fromto" property="fromto" />
+		<result column="exchange_type" property="exchange_type" />
+
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, orderid, description, openid, real_name, amount, totalcredits,
+		status, operate_time,
+		operate_result, operator, create_time, alipay_account, type, token
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from tb_comm_mem_cash
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from tb_comm_mem_cash
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemCash">
+		insert into tb_comm_mem_cash (id, orderid, description,
+		openid, real_name, amount,
+		totalcredits, status, operate_time,
+		operate_result, operator, create_time,
+		alipay_account, type, token
+		)
+		values (#{id,jdbcType=INTEGER}, #{orderid,jdbcType=VARCHAR},
+		#{description,jdbcType=VARCHAR},
+		#{openid,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{amount,jdbcType=INTEGER},
+		#{totalcredits,jdbcType=DOUBLE}, #{status,jdbcType=TINYINT},
+		#{operateTime,jdbcType=TIMESTAMP},
+		#{operateResult,jdbcType=VARCHAR}, #{operator,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+		#{alipayAccount,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT},
+		#{token,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemCash">
+		insert into tb_comm_mem_cash
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="orderid != null">
+				orderid,
+			</if>
+			<if test="description != null">
+				description,
+			</if>
+			<if test="openid != null">
+				openid,
+			</if>
+			<if test="realName != null">
+				real_name,
+			</if>
+			<if test="amount != null">
+				amount,
+			</if>
+			<if test="totalcredits != null">
+				totalcredits,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="operateTime != null">
+				operate_time,
+			</if>
+			<if test="operateResult != null">
+				operate_result,
+			</if>
+			<if test="operator != null">
+				operator,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="alipayAccount != null">
+				alipay_account,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="token != null">
+				token,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="orderid != null">
+				#{orderid,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="openid != null">
+				#{openid,jdbcType=VARCHAR},
+			</if>
+			<if test="realName != null">
+				#{realName,jdbcType=VARCHAR},
+			</if>
+			<if test="amount != null">
+				#{amount,jdbcType=INTEGER},
+			</if>
+			<if test="totalcredits != null">
+				#{totalcredits,jdbcType=DOUBLE},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=TINYINT},
+			</if>
+			<if test="operateTime != null">
+				#{operateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="operateResult != null">
+				#{operateResult,jdbcType=VARCHAR},
+			</if>
+			<if test="operator != null">
+				#{operator,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="alipayAccount != null">
+				#{alipayAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=TINYINT},
+			</if>
+			<if test="token != null">
+				#{token,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemCash">
+		update tb_comm_mem_cash
+		<set>
+			<if test="orderid != null">
+				orderid = #{orderid,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				description = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="openid != null">
+				openid = #{openid,jdbcType=VARCHAR},
+			</if>
+			<if test="realName != null">
+				real_name = #{realName,jdbcType=VARCHAR},
+			</if>
+			<if test="amount != null">
+				amount = #{amount,jdbcType=INTEGER},
+			</if>
+			<if test="totalcredits != null">
+				totalcredits = #{totalcredits,jdbcType=DOUBLE},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=TINYINT},
+			</if>
+			<if test="operateTime != null">
+				operate_time = #{operateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="operateResult != null">
+				operate_result = #{operateResult,jdbcType=VARCHAR},
+			</if>
+			<if test="operator != null">
+				operator = #{operator,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="alipayAccount != null">
+				alipay_account = #{alipayAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=TINYINT},
+			</if>
+			<if test="token != null">
+				token = #{token,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemCash">
+		update tb_comm_mem_cash
+		set orderid = #{orderid,jdbcType=VARCHAR},
+		description = #{description,jdbcType=VARCHAR},
+		openid = #{openid,jdbcType=VARCHAR},
+		real_name = #{realName,jdbcType=VARCHAR},
+		amount = #{amount,jdbcType=INTEGER},
+		totalcredits = #{totalcredits,jdbcType=DOUBLE},
+		status = #{status,jdbcType=TINYINT},
+		operate_time = #{operateTime,jdbcType=TIMESTAMP},
+		operate_result = #{operateResult,jdbcType=VARCHAR},
+		operator = #{operator,jdbcType=INTEGER},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		alipay_account = #{alipayAccount,jdbcType=VARCHAR},
+		type = #{type,jdbcType=TINYINT},
+		token = #{token,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+
+	<select id="selectByToken" resultType="map"
+		parameterType="java.lang.Integer">
+		select tca.orderid,tc.type, tc.amount,tca.result, tc.alipay_account,tca.approve_time from tb_comm_mem_cash_approve   tca
+         LEFT JOIN tb_comm_mem_cash tc on tca.orderid = tc.orderid 
+		where tc.token = #{token,jdbcType=VARCHAR}  and tca.result != 1
+		order by tca.approve_time desc
+		<if test="currentPage !=null and pageSize != null">
+    <![CDATA[  LIMIT #{currentPage,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER} ]]>
+		</if>
+	</select>
+
+	<select id="selectOrderByDay" resultMap="OrderResultMap"
+		parameterType="java.util.Date">
+		select date(c.create_time) as day,sum(c.amount) as amount,count(c.id)
+		as times
+		from tb_comm_mem_cash c
+		where 1 = 1
+		<if test="time != null">
+			and date(c.create_time) > date(#{time})
+		</if>
+		group by date(c.create_time)
+		order by date(c.create_time) DESC
+	</select>
+
+	<select id="selectCountByStatus" resultType="java.lang.Integer"
+		parameterType="java.util.Date">
+		SELECT count(*)
+		FROM tb_comm_mem_cash
+		WHERE status = '2' AND
+		date(create_time) =
+		date(#{day})
+	</select>
+	
+	<select id="selectPageByDay" resultType="map" >
+		SELECT  c.create_time, c.id, c.orderid,
+			c.amount, c.status, c.operate_result, c.operate_time,
+			u.mobile AS userphone, u.nickname,c.token
+		FROM tb_comm_mem_cash c JOIN tb_comm_user u ON u.indicate=c.token
+		WHERE c.create_time between #{startDate} and #{endDate}
+		<if test="nickname != null">
+			AND u.nickname like CONCAT('${nickname}','%' )
+		</if>
+		<if test="mobile != null">
+			AND u.mobile = #{mobile}
+		</if>
+		<if test="amount > 0">
+			AND c.amount = #{amount}
+		</if>
+		ORDER BY  c.create_time desc
+		LIMIT #{start},#{size}
+	</select>
+	
+	<select id="countPageByDay" resultType="Integer">
+		SELECT count(*)
+		FROM tb_comm_mem_cash c JOIN tb_comm_user u ON u.indicate=c.token
+		WHERE c.create_time between #{startDate} and #{endDate}
+		<if test="nickname != null">
+			AND u.nickname like CONCAT('${nickname}','%' )
+		</if>
+		<if test="mobile != null">
+			AND u.mobile = #{mobile}
+		</if>
+		<if test="amount > 0">
+			AND c.amount = #{amount}
+		</if>
+	</select>
+	
+	<select id="countByTokens" parameterType="string" resultType="map">
+		SELECT token, count(*) cnt 
+		from tb_comm_mem_cash 
+		WHERE token in
+		<foreach item="id" index="index" collection="tokens" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+		group by token
+	</select>
+	
+	<select id="countPageByUser" resultType="Integer" parameterType="java.util.Map">
+		SELECT count(*)
+		FROM tb_comm_mem_cash c JOIN tb_comm_user u ON u.indicate = c.token
+			AND c.token=#{token}
+		<if test="from!=null and from != ''">
+			<![CDATA[  AND date(c.create_time) >= #{from} ]]>
+		</if>
+		<if test="to!=null and to != ''">
+			<![CDATA[  AND date(c.create_time)<= #{to} ]]>
+		</if>
+		LEFT JOIN tb_admin_user au ON au.id = c.operator
+	</select>
+
+	<select id="selectPageByUser" resultType="map" parameterType="java.util.Map">
+		SELECT
+			c.id, DATE_FORMAT(c.create_time,'%Y-%m-%d %h:%i:%s') createTime, c.description, c.orderid, 
+			c.openid, c.totalcredits-c.amount, c.status, 
+			IFNULL(c.operate_result,'') operateResult, IFNULL(c.operate_time,'') operatetime, c.real_name,
+			 c.operator,c.token,u.award,c.type,
+			au.username AS operatorName                                    
+		FROM tb_comm_mem_cash c JOIN tb_comm_user u ON c.token = u.indicate
+			AND c.token=#{token}
+		<if test="from != null and from != ''">
+			<![CDATA[  AND date(c.create_time) >= #{from} ]]>
+		</if>
+		<if test="to!=null and to != ''">
+			<![CDATA[  AND date(c.create_time)<= #{to} ]]>
+		</if>
+		 LEFT JOIN tb_admin_user au ON au.id = c.operator
+		ORDER BY  c.create_time DESC
+		<if test="start !=null and size != null">
+	    <![CDATA[ LIMIT #{start},#{size} ]]>
+		</if>
+	</select>    
+</mapper>

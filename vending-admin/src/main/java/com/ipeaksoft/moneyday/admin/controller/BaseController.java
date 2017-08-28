@@ -1,0 +1,33 @@
+package com.ipeaksoft.moneyday.admin.controller;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.ipeaksoft.moneyday.admin.util.security.SpringSecurityUtils;
+import com.ipeaksoft.moneyday.core.entity.AdminUser;
+import com.ipeaksoft.moneyday.core.service.AdminUserService;
+
+public class BaseController {
+	protected Logger logger = LoggerFactory.getLogger(this.getClass());
+	@Autowired
+	protected AdminUserService adminUserService;
+	// Alpha
+	public static final String app_id = "2017072407880532";// 付宝分配给开发者的应用ID
+	public static final String method = "alipay.fund.trans.toaccount.transfe";
+	public static final String charset = "UTF-8";
+	public static final String privatKey = "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCPmkvu0bGN8K7QY3kAUEpunBK/mvQb9xzULlgDfjnFbMF235enOEB9qh7d8WRS/Ho4ZXBkMamr6yUm8JUCY9BDLui+WiUIYEIS4jiN4SuTb+Z14OIBMaKjFuJq4jFK58xoeY6Y1jx9z3pBTEE6jQl88I62XMOuPZIBV03OIqp7LpuZCSDCYXvK/w60aKngFdYvboYca/LSyXMVLBGVRPYsZOcwc9XBH2U+BOSFsnXwq6luGDHYjvhWFXOuS6OreAG9DDKpCfKmwpRC7Q3wf2rtHcyqVo5vD9ijOcGe+Mz1fZKb1QrhpQ+8WGB4dCL++/cxAs9SHNu2fXeKTucHq+RZAgMBAAECggEADYCCdzf8K85fgXR44hCqju/Zy240WZTIfyLEX7+0it2I6zZmufBOEAK42EFkH3FhxH+1K5aHz4RSf/DK8eiUolx8wbkUFk+GpuPiUWTEhh5VWuwEE/yowBDcxRPzcomM7J3RTImIMoQZiJ4029567+ZmZLsgIvfjDIE67ZDQ2rgI9mR7HoYf5eA9ydA64eFQe6ybg1ejFG6lQGadNd63SKY/3c+a4hTottSRZOwhny2MOpYBl2leO7+BWQqYAMoV7Ed7ZsVsgdTtj3OqOSMlHqgaxQ8zRVbx2PVsw6JqaBpcBSuorT7hkxx8SXqBee6iuBLDXpC1qIYncCDdAD0woQKBgQDQi8mFFnsFw9BdeQ5SOzR3HIqW9HJMDO1jOkVEagsJODGS60CCqDCVQIzbK1y3yzSouw8AC0rIXsbeN1gel/PjRL05LSmodYYSMNpSCcttsURKY9kRJQBerXakiGWd2+UIDetH1et47knjSeKX7L8EdqXY2zDfTwqsRUVxdQHePQKBgQCwR289KBFmqAnlvg10jgW/6mFZwzjyzBpPNY7okYNUQtKsl6XLLOIRD3I1/kqAxYfPwPw5ou8I81Rax8zW8gb0vmDE4KFBKpzVpK0Lolipp1Euo3gTKTsh44M6n8panhep5hW5CZU+pZbdUYQ1jbR8y0B8bvEg1E3SEkGqCjj8TQKBgEH9md0VSgR++/Y4EkIPHgD69Rfjbi+Gf6/Ahp6pd6iJMZat/pHZqtXvwSKxS/uUv6sM1ihLanSRGRjEJow3xSMLY10uX1pBJhWng84l70tcpqFriwqTzNQoy7wwtQcIyCaOUP9AP+zaamMTxDIS5jcBXGWMpqBjIJt2qAzI27h5AoGBAJiHRw5w1BWygtXiy/u1Q+5anJ+x113nE0DEhAJinnNTWr1yfke+b2H5roZfoRGpWal/P/+TJyfkfHIMfgbi5vfwnwTbpUwg1hHaas0tTXCG0Sz8z1ItE/hvx0X7q3kbYDhnWRaB3zyUxWR9O1unYKu2pvbEfCo+6ZNCrsS2EbblAoGAOZa2+MrXuigPKt7Q+zuk6/EUDbTfMaASWOKAsXf2OJsxDDLJ8YWtyD3yqKdEcfzwHulEVEkiqo9kz6Qb9G4NWX767SHwlJFE4OYE3zfY2LYToJ/+nP4ScpxGjEUt5UzGcq+rr1k/IUyaFNSChXajZ82NSAC7PAlvbmyt7ohIqK4=";
+	public static final String alipublicKey ="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzYJRFgDl1DGObMwsWsghO09XCIn9dtwmnc6Gr1OLKXXnOXo7RKK+mnbqFqxR5UBXnR3Q0BbxSTebX288/e9Kon2FyWdkz3bSKbYKVRK201EkGpiEqqOqesffja+q8R6g/PPVTO3G6Tsm6wS+w94ig3JLsvsL8VdXAFx/RPbjjtKsUDf9EZrm/nkB8gpyw1WlxZ9Aoo75nhjWux85MdeowownEBhkwtOxipTSNTAPWt0fsbjHP404QiWTHFTzuj3n1xbEJGkLaScG0VqUmht+L8WjH731hqN4rJMtvOudoltZR5HBVTCxjZAyfs2peL41IwDeUqfqeJFMF/J8M3Hg9wIDAQAB";
+	public static final String ali_url = "https://openapi.alipay.com/gateway.do";
+	// test
+	public static final String ali_url_test = "https://openapi.alipaydev.com/gateway.do";
+	public static final String app_id_test = "2016080500175638";// 付宝分配给开发者的应用ID
+	public static final String alipublicKey_test = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnu8g+n8QpYGEeq2QRHebJHPkRxPP9iPKGp51B9B+/Raxn1XXmuUw+GlLCiWbL7WF+Pm1ZKz5gAx3zXvcoYiOVWeC+hIuxM4UU5iI0ag0NndVUngntlMoUvr6yNCPw5bcL6KKE8+dXsrKXvDySippBfRUKLfPZaqCJ0Pxo22jBvwoM2McSdWOnBX7dw+1dbde06DAWuj6yv7dUnKDe+3+Uqup00JeYPLGXLFzZ/AhMzcktnDH7Y5B0Y1PRo9Lv7vzBASqnxrODoQAkyGhn35YGbRF+96IyLg333pjtZiyTz8KY2PjkIsw/wO3zHsWATov6xNnN/TZfYekEwRvC3bwiQIDAQAB";
+
+	// 取得登录用户
+	public AdminUser getUser() {
+		String name = SpringSecurityUtils.getCurrentUserName();
+		AdminUser user = adminUserService.getUserByName(name);
+		return user;
+	}
+}
