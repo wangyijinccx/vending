@@ -8,19 +8,14 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ipeaksoft.moneyday.core.entity.CommUser;
-import com.ipeaksoft.moneyday.core.entity.CommUserWxalipy;
 import com.ipeaksoft.moneyday.core.mapper.CommUserMapper;
-import com.ipeaksoft.moneyday.core.util.strUtil;
 
 @Service
 public class CommUserService extends BaseService {
 
 	@Autowired
 	private CommUserMapper commUserMapper;
-	@Autowired
-	private CommUserDayService commUserDayService;
-	@Autowired
-	private CommUserWxalipyService commUserWxalipyService;
+	
 
 	public int insertSelective(CommUser record) {
 		return commUserMapper.insertSelective(record);
@@ -94,36 +89,6 @@ public class CommUserService extends BaseService {
 		return commUser;
 	}
 
-	public JSONObject userInfo(String indicate) {
-		JSONObject result = new JSONObject();
-		Map<String, Object> commUser = selectByIndicateSelective(indicate);
-		if (null == commUser) {
-			commUser = selectByIndicateSelective2(indicate);
-		}
-		Map<String, Object> commUserDay = commUserDayService
-				.getConsumptionThisMonth((String) commUser.get("token"));
-		// result.put("token", commUser.getIndicate());
-		Long todayWithdrawalsCount = (Long) commUser
-				.get("todayWithdrawalsCount");
-		String mobile = (String) commUser.get("mobile");
-		String pass = strUtil.getPassWord(mobile);
-		commUser.put("whaccount", mobile);
-		commUser.put("whpass", pass);
-		commUser.put("xmaccount", "xg_" + mobile);
-		commUser.put("xmpass", pass);
-		commUser.put("todayWithdrawalsCount", withdrawalNumber
-				- todayWithdrawalsCount);
-		commUser.put("consumptionThisMonth", null == commUserDay ? 0
-				: commUserDay.get("consumptionThisMonth"));
-		commUser.put("share", "http://commapi.xiguamei.com/api/share.jsp?invite="+mobile);
-		//微信支付宝账号
-		CommUserWxalipy model = commUserWxalipyService.selectToken(indicate);
-		commUser.put("alipay", null == model?"":(null == model.getAlipay()?"":model.getAlipay()));
-		commUser.put("aliname", null == model?"":(null == model.getAliname()?"":model.getAliname()));
-		commUser.put("wxpay", null == model?"":(null == model.getWeixin()?"":model.getWeixin()));
-		commUser.put("wxname", null == model?"":(null == model.getWxname()?"":model.getWxname()));
-		result.put("user", commUser);
-		return result;
-	}
+	
 
 }

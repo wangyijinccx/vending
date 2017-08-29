@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ipeaksoft.moneyday.core.entity.CommUser;
-import com.ipeaksoft.moneyday.core.entity.CommUserWxalipy;
 import com.ipeaksoft.moneyday.core.service.CommUserService;
-import com.ipeaksoft.moneyday.core.service.CommUserWxalipyService;
 import com.ipeaksoft.moneyday.core.service.HttpService;
 
 @Service
@@ -22,8 +20,6 @@ public class WechatWeiXinService extends BaseService {
 	HttpService httpService;
 	@Autowired
 	CommUserService commUserService;
-	@Autowired
-	CommUserWxalipyService commUserWxalipyService;
 
 	
 	// 西瓜妹
@@ -51,21 +47,7 @@ public class WechatWeiXinService extends BaseService {
 	}
 
 	public void binging(String unionid) {
-		CommUser commUser = commUserService.selectByUnionid(unionid);
-		if (null != commUser) {
-			CommUserWxalipy model = commUserWxalipyService.selectToken(commUser
-					.getIndicate());
-			CommUserWxalipy commUserWxalipy = new CommUserWxalipy();
-			commUserWxalipy.setToken(commUser.getIndicate());
-			commUserWxalipy.setWeixin(commUser.getUnionid());
-			if (null == model) {
-				commUserWxalipyService.insertSelective(commUserWxalipy);
-			} else {
-				commUserWxalipy.setId(model.getId());
-				commUserWxalipyService
-						.updateByPrimaryKeySelective(commUserWxalipy);
-			}
-		}
+		
 	}
 
 	public String getXGMOpenid(String code) {

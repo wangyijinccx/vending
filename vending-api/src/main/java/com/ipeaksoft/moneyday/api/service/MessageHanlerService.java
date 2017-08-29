@@ -12,7 +12,6 @@ import com.ipeaksoft.moneyday.api.model.EventType;
 import com.ipeaksoft.moneyday.api.model.Message;
 import com.ipeaksoft.moneyday.core.entity.CommUserQdjl;
 import com.ipeaksoft.moneyday.core.service.CommUserQdjlService;
-import com.ipeaksoft.moneyday.core.service.CommUserWxalipyService;
 
 @Service
 public class MessageHanlerService {
@@ -23,9 +22,7 @@ public class MessageHanlerService {
 	CommUserQdjlService commUserQdjlService;
 	@Autowired
 	WechatWeiXinService wechatService;
-	@Autowired
-	CommUserWxalipyService commUserWxalipyService;
-
+	
 	public String handler(Message message) {
 		if (message == null) {
 			return null;
@@ -85,9 +82,6 @@ public class MessageHanlerService {
 		try {
 			if (null != message) {
 				commUserQdjlService.unsubscribe(message.getFromUserName());
-				CommUserQdjl existUser = commUserQdjlService
-						.findByOpenid(message.getFromUserName());
-				commUserWxalipyService.unsubscribe(existUser.getUnionid());
 			}
 		} catch (Exception e) {
 

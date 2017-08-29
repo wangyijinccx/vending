@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.Map.Entry;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Matcher;
@@ -33,22 +32,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.ipeaksoft.moneyday.admin.util.BillUtil;
-import com.ipeaksoft.moneyday.admin.util.CommonUtil;
 import com.ipeaksoft.moneyday.admin.util.DateUtil;
 import com.ipeaksoft.moneyday.admin.wxpay.WxPayConfig;
 import com.ipeaksoft.moneyday.admin.wxpay.WxPayUtil;
 import com.ipeaksoft.moneyday.admin.wxpay.XMLUtil;
 import com.ipeaksoft.moneyday.core.entity.CommMemCash;
 import com.ipeaksoft.moneyday.core.entity.CommMemCashApprove;
-import com.ipeaksoft.moneyday.core.entity.CommStatWxCash;
 import com.ipeaksoft.moneyday.core.entity.CommUser;
 import com.ipeaksoft.moneyday.core.entity.CommUserQdjl;
-import com.ipeaksoft.moneyday.core.entity.UserCashOrder;
 import com.ipeaksoft.moneyday.core.sdk.duiba.Constant;
 import com.ipeaksoft.moneyday.core.service.CommMemCashApproveService;
 import com.ipeaksoft.moneyday.core.service.CommMemCashService;
-import com.ipeaksoft.moneyday.core.service.CommStatWxCashService;
-import com.ipeaksoft.moneyday.core.service.CommUserDayService;
 import com.ipeaksoft.moneyday.core.service.CommUserQdjlService;
 import com.ipeaksoft.moneyday.core.service.CommUserService;
 
@@ -56,14 +50,11 @@ import com.ipeaksoft.moneyday.core.service.CommUserService;
 @RequestMapping(value = "/bill/checked")
 public class CommBillCheckedController extends BaseController {
 
-	@Autowired
-	CommStatWxCashService commStatWxCashService;
+	
 	@Autowired
 	CommMemCashService commMemCashService;
 	@Autowired
 	CommUserService commUserService;
-	@Autowired
-	CommUserDayService commUserDayService;
 	@Autowired
 	CommMemCashApproveService commMemCashApproveService;
 	@Autowired
@@ -75,9 +66,7 @@ public class CommBillCheckedController extends BaseController {
 
 	@RequestMapping(value = "/list")
 	public String Checked(HttpServletRequest request) {
-		Integer totalmoney = commStatWxCashService.getAllMoney();
-		totalmoney = (null == totalmoney) ? 0 : totalmoney;
-		request.setAttribute("totalmoney", totalmoney);
+		request.setAttribute("totalmoney", 0);
 		return "/bill/checked";
 	}
 
@@ -97,73 +86,8 @@ public class CommBillCheckedController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/data_load")
 	public String load_data(HttpServletRequest request) {
-		String draw = request.getParameter("draw");// 搜索内容
-		Map<String, Object> paramMap = billUtil.getWhereMap(request);
-		int total = commStatWxCashService.countAllByWhere(paramMap);
-		Date date = null;
-		if (0 == total) {
-		} else {
-			// 数据库有昨天以前的所有数据，则读取昨天和当天的数据，保存昨天的数据并合并三者来显示
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(new Date());
-			calendar.add(Calendar.DAY_OF_YEAR, -15);
-			date = calendar.getTime();
-		}
-
-		// 统计用户的兑换信息,并封装到Map中
-		List<UserCashOrder> list = commMemCashService.selectOrderByDay(date);
-		Map<Date, CommStatWxCash> map = new HashMap<Date, CommStatWxCash>();
-		for (UserCashOrder userCashOrder : list) {
-			Date day = userCashOrder.getDay();
-			CommStatWxCash statWxCash = null;
-			if (map.containsKey(day)) {
-				statWxCash = map.get(day);
-				map.remove(day);
-			} else {
-				statWxCash = new CommStatWxCash();
-			}
-
-			statWxCash.setAmount(userCashOrder.getAmount());
-			statWxCash.setTimes(userCashOrder.getTimes());
-			map.put(day, statWxCash);
-		}
-
-		for (Entry<Date, CommStatWxCash> entry : map.entrySet()) {
-			Date day = entry.getKey();
-			CommStatWxCash cash = entry.getValue();
-			int wrong = commMemCashService.selectCountByStatus(day);
-			cash.setDay(day);
-			cash.setPendingCount(wrong);
-			CommStatWxCash commStatWxCash = commStatWxCashService
-					.selectByPrimaryKey(day);
-			if (null == commStatWxCash) {
-				commStatWxCashService.addNew(cash); // 插入今天、昨天的数据到数据库
-				if (0 == CommonUtil.compareDay(day, new Date())) {
-					total += 1; // 如果是今天的数据插入成功，则总数加1
-				}
-			} else { // 如果已存在记录，则更新记录
-				int update = commStatWxCashService.updateUser(cash);
-				if (1 != update) {
-					update = commStatWxCashService.updateUser(cash);
-				}
-			}
-		}
-		List<CommStatWxCash> statcashs = commStatWxCashService
-				.getPageByDay(paramMap);
-		JSONArray jsonArray = new JSONArray();
-		for (CommStatWxCash _statWxCash : statcashs) {
-			JSONObject jsonObject = new JSONObject();
-			String day = DateUtil.date2Str("yyyy-MM-dd", _statWxCash.getDay());
-			jsonObject.put("day", day);
-			jsonObject.put("amount", _statWxCash.getAmount());
-			jsonObject.put("times", _statWxCash.getTimes());
-			jsonObject.put("pendingCount", _statWxCash.getPendingCount());
-			jsonArray.add(jsonObject);
-		}
-		int size = statcashs.size();
-		JSONObject result = billUtil.formatResult(draw, total, jsonArray, size);
-		logger.info(result.toString());
-		return result.toString();
+		
+		return null;
 	}
 
 	@ResponseBody
