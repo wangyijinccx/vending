@@ -72,6 +72,7 @@ public class QRCodeUtil {
 		int width = bitMatrix.getWidth();
 		int height = bitMatrix.getHeight();
 		//创建一个不带透明色的BufferedImage对象
+		//http://jszx-jxpt.cuit.edu.cn/JavaAPI/java/awt/image/BufferedImage.html
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
@@ -203,11 +204,11 @@ public class QRCodeUtil {
 	 public static void main(String[] args) throws Exception {  
          
         //生成带logo 的二维码   
-        String text = "http://xiguamei.com";  
-        QRCodeUtil.encode(text, "D:/1.png", "d:/WPS", true);  
+       // String text = "http://xiguamei.com";  
+        //QRCodeUtil.encode(text, "D:/1.png", "d:/WPS", true);  
           
         //生成不带logo 的二维码  
-        //String textt = "http://www.baidu.com";  
+       // String textt = "http://xiguamei.com";  
        // QRCodeUtil.encode(textt,"","d:/WPS",true);  
           
         //指定二维码图片，解析返回数据  
