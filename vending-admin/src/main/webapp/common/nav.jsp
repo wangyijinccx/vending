@@ -11,7 +11,7 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand">西瓜妹社区</a>
+			<a class="navbar-brand">自助售货</a>
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
@@ -26,10 +26,10 @@
 				
 				<security:authorize ifAnyGranted="R_ADMIN">
 					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#">游戏<span class="caret"></span></a>
+						data-toggle="dropdown" href="#">公司柜台<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li class=""><a
-								href="${pageContext.request.contextPath}/game/published">游戏列表</a></li>
+								href="${pageContext.request.contextPath}/company/published">公司柜台列表</a></li>
 						</ul></li>
 				</security:authorize>
 				
