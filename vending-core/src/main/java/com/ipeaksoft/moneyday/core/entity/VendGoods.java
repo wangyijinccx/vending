@@ -11,7 +11,7 @@ public class VendGoods {
 
     private Double actualPrice;
 
-    private Integer discount;
+    private Double discount;
 
     private Byte status;
 
@@ -59,11 +59,11 @@ public class VendGoods {
         this.actualPrice = actualPrice;
     }
 
-    public Integer getDiscount() {
+    public Double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(Integer discount) {
+    public void setDiscount(Double discount) {
         this.discount = discount;
     }
 

@@ -72,7 +72,7 @@ select.form-control {
 		<div class="row padding-15-tb">
 			<div class="col-xs-12">
 				<form id="form_task" class="form-horizontal"
-					action="${pageContext.request.contextPath}/goods/updateInfo">
+					action="${pageContext.request.contextPath}/company/updateInfo">
 					<input type="hidden" name="id" value="${company.id}" />
 					<div class="form-group">
 						<label for="inputEmail" class="col-xs-3 control-label">公司名称</label>

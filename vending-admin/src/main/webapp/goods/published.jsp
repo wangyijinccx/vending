@@ -166,7 +166,7 @@ div.dataTables_info {
 															"render" : function(
 																	data, type,
 																	row) {
-																return '<a type="button" class="btn btn-primary btn-xs" href="${pageContext.request.contextPath}/company/update?id='
+																return '<a type="button" class="btn btn-primary btn-xs" href="${pageContext.request.contextPath}/goods/update?id='
 																		+ row.id
 																		+ '">编辑</a>'
 																		+ '<button class="btn btn-primary btn-xs" type="button" onclick="btn('

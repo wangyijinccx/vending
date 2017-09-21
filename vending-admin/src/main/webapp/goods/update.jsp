@@ -72,41 +72,49 @@ select.form-control {
 		<div class="row padding-15-tb">
 			<div class="col-xs-12">
 				<form id="form_task" class="form-horizontal"
-					action="${pageContext.request.contextPath}/company/updateInfo">
-					<input type="hidden" name="id" value="${company.id}" />
+					action="${pageContext.request.contextPath}/goods/updateInfo">
+					<input type="hidden" name="id" value="${goods.id}" />
 					<div class="form-group">
-						<label for="inputEmail" class="col-xs-3 control-label">公司名称</label>
+						<label for="inputEmail" class="col-xs-3 control-label">商品名称</label>
 						<div class="col-xs-3 s">
-							<input name=company type="text" class="form-control"
-								value="${company.company}" id="company" placeholder="公司名称" >
+							<input name=name type="text" class="form-control"
+								value="${goods.name}" id="name" placeholder="商品名称" >
 						</div>
 					</div>
 					
 					
 					<div class="form-group">
-						<label for="inputEmail" class="col-xs-3 control-label">公司地址</label>
+						<label for="inputEmail" class="col-xs-3 control-label">原件</label>
 						<div class="col-xs-3 s">
-							<input name="address" type="text" class="form-control"
-								value="${company.address}" id="address" placeholder="公司地址">
+							<input name="originalPrice" type="text" class="form-control"
+								value="${goods.originalPrice}" id="originalPrice" placeholder="公司地址">
 						</div>
 					</div>
 					
 					<div class="form-group">
-						<label for="inputEmail" class="col-xs-3 control-label">联系方式</label>
+						<label for="inputEmail" class="col-xs-3 control-label">折扣</label>
 						<div class="col-xs-3 s">
-							<input name="tel" type="text" class="form-control"
-								value="${company.tel}" id="tel" placeholder="联系方式">
+							<input name="discount" type="text" class="form-control"
+								value="${goods.discount}" id="discount" placeholder="联系方式">
 						</div>
 					</div>
 					
 					<div class="form-group">
-						<label for="inputPassword" class="col-xs-3  control-label">是否投放</label>
+						<label for="inputEmail" class="col-xs-3 control-label">商品数量</label>
+						<div class="col-xs-3 s">
+							<input name="num" type="text" class="form-control"
+								value="${goods.num}" id="num" placeholder="联系方式">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="inputPassword" class="col-xs-3  control-label">是否下架</label>
 						<div class="col-xs-7">
 							<select class="form-control" id="status" name="status">
 								<option value="0"
-									<c:if test = "${company.status == 0}">selected="selected"</c:if>>否</option>
+									<c:if test = "${goods.status == 0}">selected="selected"</c:if>>否</option>
 								<option value="1"
-									<c:if test = "${company.status == 1}">selected="selected"</c:if>>是</option>
+									<c:if test = "${goods.status == 1}">selected="selected"</c:if>>是</option>
 							</select>
 						</div>
 					</div>

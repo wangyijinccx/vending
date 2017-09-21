@@ -6,7 +6,7 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="original_price" property="originalPrice" jdbcType="DOUBLE" />
     <result column="actual_price" property="actualPrice" jdbcType="DOUBLE" />
-    <result column="discount" property="discount" jdbcType="INTEGER" />
+    <result column="discount" property="discount" jdbcType="DOUBLE" />
     <result column="status" property="status" jdbcType="TINYINT" />
     <result column="code" property="code" jdbcType="VARCHAR" />
     <result column="bak" property="bak" jdbcType="VARCHAR" />
@@ -35,7 +35,7 @@
       code, bak, bak2, create_time, 
       update_time, num)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{originalPrice,jdbcType=DOUBLE}, 
-      #{actualPrice,jdbcType=DOUBLE}, #{discount,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, 
+      #{actualPrice,jdbcType=DOUBLE}, #{discount,jdbcType=DOUBLE}, #{status,jdbcType=TINYINT}, 
       #{code,jdbcType=VARCHAR}, #{bak,jdbcType=VARCHAR}, #{bak2,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{num,jdbcType=INTEGER})
   </insert>
@@ -93,7 +93,7 @@
         #{actualPrice,jdbcType=DOUBLE},
       </if>
       <if test="discount != null" >
-        #{discount,jdbcType=INTEGER},
+        #{discount,jdbcType=DOUBLE},
       </if>
       <if test="status != null" >
         #{status,jdbcType=TINYINT},
@@ -131,7 +131,7 @@
         actual_price = #{actualPrice,jdbcType=DOUBLE},
       </if>
       <if test="discount != null" >
-        discount = #{discount,jdbcType=INTEGER},
+        discount = #{discount,jdbcType=DOUBLE},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=TINYINT},
@@ -162,7 +162,7 @@
     set name = #{name,jdbcType=VARCHAR},
       original_price = #{originalPrice,jdbcType=DOUBLE},
       actual_price = #{actualPrice,jdbcType=DOUBLE},
-      discount = #{discount,jdbcType=INTEGER},
+      discount = #{discount,jdbcType=DOUBLE},
       status = #{status,jdbcType=TINYINT},
       code = #{code,jdbcType=VARCHAR},
       bak = #{bak,jdbcType=VARCHAR},

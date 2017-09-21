@@ -1,5 +1,6 @@
 package com.ipeaksoft.moneyday.admin.controller;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
@@ -71,6 +72,12 @@ public class VendGoodsController extends BaseController {
 	public String add(VendGoods vendGoods, HttpServletRequest request) {
 		String result = "{\"status\":true,\"msg\":\"添加成功\"}";
 		try {
+			Double originalPrice = vendGoods.getOriginalPrice();
+			Double discount = vendGoods.getDiscount();
+			BigDecimal bigDecimalMultiply = (new BigDecimal(originalPrice))
+					.multiply(new BigDecimal(discount / 10));
+			double actualPrice = bigDecimalMultiply.doubleValue();
+			vendGoods.setActualPrice(actualPrice);
 			vendGoods.setCreateTime(new Date());
 			vendGoods.setUpdateTime(new Date());
 			if (vendGoodsService.insertSelective(vendGoods) < 1) {
@@ -94,6 +101,17 @@ public class VendGoodsController extends BaseController {
 			if (model == null) {
 				result = "{\"status\":true,\"msg\":\"不存在该对象\"}";
 			} else {
+				Double originalPrice = vendGoods.getOriginalPrice();
+				Double discount = vendGoods.getDiscount();
+				BigDecimal bigDecimalMultiply = (new BigDecimal(originalPrice))
+						.multiply(new BigDecimal(discount / 10));
+				double actualPrice = bigDecimalMultiply.doubleValue();
+				model.setName(vendGoods.getName());
+				model.setOriginalPrice(vendGoods.getOriginalPrice());
+				model.setActualPrice(actualPrice);
+				model.setDiscount(vendGoods.getDiscount());
+				model.setStatus(vendGoods.getStatus());
+				model.setNum(vendGoods.getNum());
 				model.setUpdateTime(new Date());
 				if (vendGoodsService.updateByPrimaryKeySelective(model) < 1) {
 					result = "{\"status\":true,\"msg\":\"更新失败\"}";

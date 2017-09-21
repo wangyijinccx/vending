@@ -106,7 +106,7 @@ select.form-control {
 					</div>
 					
 					<div class="form-group">
-						<label for="inputPassword" class="col-xs-3  control-label">是否投放</label>
+						<label for="inputPassword" class="col-xs-3  control-label">是否下架</label>
 						<div class="col-xs-7">
 							<select class="form-control" id="status" name="status">
 								<option value="0" selected="selected">否</option>
