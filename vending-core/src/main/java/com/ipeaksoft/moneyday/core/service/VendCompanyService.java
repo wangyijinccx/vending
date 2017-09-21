@@ -25,5 +25,15 @@ public class VendCompanyService extends BaseService {
 	public int selectNum() {
 		return vendCompanyMapper.selectNum();
 	}
+	
+	public int insertSelective(VendCompany record){
+		return vendCompanyMapper.insertSelective(record);
+	}
+
+
+	public int updateByPrimaryKeySelective(VendCompany record){
+		return vendCompanyMapper.updateByPrimaryKeySelective(record);
+		
+	}
 
 }

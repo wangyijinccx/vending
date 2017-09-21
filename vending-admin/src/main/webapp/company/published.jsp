@@ -52,8 +52,8 @@ div.dataTables_info {
 		<div class="row border-bottom padding-top-15 ">
 			<div class="col-xs-2 text-left">
 				<ol class="breadcrumb">
-					<li><a href="#">游戏</a></li>
-					<li><a href="#" class="active">游戏列表</a></li>
+					<li><a href="#">公司货架</a></li>
+					<li><a href="#" class="active">公司货架列表</a></li>
 				</ol>
 			</div>
 		</div>
@@ -120,7 +120,7 @@ div.dataTables_info {
 										},
 										{
 											"render" : function(data, type, row) {
-												return '<a type="button" class="btn btn-primary btn-xs" href="${pageContext.request.contextPath}/game/update?id=' + row.id + '">编辑</a>'
+												return '<a type="button" class="btn btn-primary btn-xs" href="${pageContext.request.contextPath}/company/update?id=' + row.id + '">编辑</a>'
 											}
 										}
 

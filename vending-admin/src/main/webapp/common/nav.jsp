@@ -28,8 +28,10 @@
 					<li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown" href="#">公司柜台<span class="caret"></span></a>
 						<ul class="dropdown-menu">
+						<li class=""><a
+								href="${pageContext.request.contextPath}/company/create">添加公司货架</a></li>
 							<li class=""><a
-								href="${pageContext.request.contextPath}/company/published">公司柜台列表</a></li>
+								href="${pageContext.request.contextPath}/company/published">公司货架列表</a></li>
 						</ul></li>
 				</security:authorize>
 				
