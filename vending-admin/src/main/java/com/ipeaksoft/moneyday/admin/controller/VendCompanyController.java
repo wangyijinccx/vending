@@ -14,8 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ipeaksoft.moneyday.admin.util.JsonTransfer;
 import com.ipeaksoft.moneyday.core.entity.VendCompany;
-import com.ipeaksoft.moneyday.core.service.AdminUserService;
-import com.ipeaksoft.moneyday.core.service.CommUserService;
 import com.ipeaksoft.moneyday.core.service.VendCompanyService;
 
 @Controller
