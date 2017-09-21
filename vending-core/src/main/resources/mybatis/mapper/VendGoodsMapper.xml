@@ -172,4 +172,18 @@
       num = #{num,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+	select 
+	<include refid="Base_Column_List" /> 
+	from tb_vend_goods  ORDER BY id
+	<if test="currentPage !=null and pageSize != null">
+	      <![CDATA[  LIMIT #{currentPage},#{pageSize} ]]>
+	</if>
+  </select>
+
+  <select id="selectNum" resultType="int">
+	 select count(*) from tb_vend_goods 
+  </select>
 </mapper>

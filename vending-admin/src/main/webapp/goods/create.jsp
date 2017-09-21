@@ -52,8 +52,7 @@ select.form-control {
 </style>
 
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/add_company_validate.js"></script>
-
+	src="${pageContext.request.contextPath}/js/add_goods_validate.js"></script>
 </head>
 
 <body>
@@ -64,38 +63,45 @@ select.form-control {
 		<div class="row border-bottom padding-top-15 ">
 			<div class="col-xs-4 text-left">
 				<ol class="breadcrumb">
-					<li><a href="#">公司货架</a></li>
-					<li><a href="#" class="active">编辑</a></li>
+					<li><a href="#">商品</a></li>
+					<li><a href="#" class="active">添加</a></li>
 				</ol>
 			</div>
 		</div>
 		<div class="row padding-15-tb">
 			<div class="col-xs-12">
 				<form id="form_task" class="form-horizontal"
-					action="${pageContext.request.contextPath}/goods/updateInfo">
-					<input type="hidden" name="id" value="${company.id}" />
+					action="${pageContext.request.contextPath}/goods/add">
 					<div class="form-group">
-						<label for="inputEmail" class="col-xs-3 control-label">公司名称</label>
-						<div class="col-xs-3 s">
-							<input name=company type="text" class="form-control"
-								value="${company.company}" id="company" placeholder="公司名称" >
+						<label for="inputEmail" class="col-xs-3 control-label">商品名称</label>
+						<div class="col-xs-6 s">
+							<input name="name" type="text" class="form-control"
+								id="name" placeholder="商品名称" required="required">
+						</div>
+					</div>
+				
+					
+					<div class="form-group">
+						<label for="inputEmail" class="col-xs-3 control-label">原价</label>
+						<div class="col-xs-6 s">
+							<input name="originalPrice" type="text" class="form-control"
+								id="originalPrice" placeholder="原价" required="required">
 						</div>
 					</div>
 					
-					
 					<div class="form-group">
-						<label for="inputEmail" class="col-xs-3 control-label">公司地址</label>
-						<div class="col-xs-3 s">
-							<input name="address" type="text" class="form-control"
-								value="${company.address}" id="address" placeholder="公司地址">
+						<label for="inputEmail" class="col-xs-3 control-label">折扣</label>
+						<div class="col-xs-6 s">
+							<input name="discount" type="text" class="form-control"
+								id="discount" placeholder="折扣" required="required">
 						</div>
 					</div>
 					
 					<div class="form-group">
-						<label for="inputEmail" class="col-xs-3 control-label">联系方式</label>
-						<div class="col-xs-3 s">
-							<input name="tel" type="text" class="form-control"
-								value="${company.tel}" id="tel" placeholder="联系方式">
+						<label for="inputEmail" class="col-xs-3 control-label">商品数量</label>
+						<div class="col-xs-6 s">
+							<input name="num" type="text" class="form-control"
+								id="num" placeholder="商品数量" required="required">
 						</div>
 					</div>
 					
@@ -103,10 +109,8 @@ select.form-control {
 						<label for="inputPassword" class="col-xs-3  control-label">是否投放</label>
 						<div class="col-xs-7">
 							<select class="form-control" id="status" name="status">
-								<option value="0"
-									<c:if test = "${company.status == 0}">selected="selected"</c:if>>否</option>
-								<option value="1"
-									<c:if test = "${company.status == 1}">selected="selected"</c:if>>是</option>
+								<option value="0" selected="selected">否</option>
+								<option value="1">是</option>
 							</select>
 						</div>
 					</div>
@@ -114,8 +118,8 @@ select.form-control {
 					
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-xs-3 s text-center">
-							<button type="submit" class="btn btn-primary" id="btn_add">保存</button>
-							<button type="reset" class="btn btn-default">重置</button>
+							<button type="submit" class="btn btn-primary" id="btn_add">创建</button>
+							<a href="./published" type="reset" class="btn btn-default">返回</a>
 						</div>
 					</div>
 				</form>

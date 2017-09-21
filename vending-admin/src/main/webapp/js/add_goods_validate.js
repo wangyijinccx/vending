@@ -10,7 +10,7 @@ $(function(){
 			name:{
 				validators : {
 					notEmpty : {
-						company : '公司名称不能为空'
+						name : '公司名称不能为空'
 					}
 				}
 			}

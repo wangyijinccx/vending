@@ -53,7 +53,7 @@ div.dataTables_info {
 			<div class="col-xs-2 text-left">
 				<ol class="breadcrumb">
 					<li><a href="#">公司货架</a></li>
-					<li><a href="#" class="active">公司货架列表</a></li>
+					<li><a href="#" class="active">列表</a></li>
 				</ol>
 			</div>
 		</div>
@@ -63,7 +63,7 @@ div.dataTables_info {
 					class="table table-striped table-bordered table-condensed">
 					<thead>
 						<tr>
-						    <th>序号</th>
+						     <th>序号</th>
 							<th>公司名称</th>
 							<th>公司地址</th>
 							<th>公司联系方式</th>
@@ -115,7 +115,7 @@ div.dataTables_info {
 										},
 										{
 											"render" : function(data, type,row) {
-												return '0' == row.status ? "停运" : "正常";
+												return '0' == row.status ? "下架" : "正常";
 											}
 										},
 										{

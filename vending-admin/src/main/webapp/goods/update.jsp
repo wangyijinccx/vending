@@ -52,7 +52,7 @@ select.form-control {
 </style>
 
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/add_company_validate.js"></script>
+	src="${pageContext.request.contextPath}/js/add_goods_validate.js"></script>
 
 </head>
 
@@ -64,7 +64,7 @@ select.form-control {
 		<div class="row border-bottom padding-top-15 ">
 			<div class="col-xs-4 text-left">
 				<ol class="breadcrumb">
-					<li><a href="#">公司货架</a></li>
+					<li><a href="#">商品</a></li>
 					<li><a href="#" class="active">编辑</a></li>
 				</ol>
 			</div>
@@ -72,7 +72,7 @@ select.form-control {
 		<div class="row padding-15-tb">
 			<div class="col-xs-12">
 				<form id="form_task" class="form-horizontal"
-					action="${pageContext.request.contextPath}/goods/updateInfo">
+					action="${pageContext.request.contextPath}/company/updateInfo">
 					<input type="hidden" name="id" value="${company.id}" />
 					<div class="form-group">
 						<label for="inputEmail" class="col-xs-3 control-label">公司名称</label>

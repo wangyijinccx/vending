@@ -64,7 +64,7 @@ select.form-control {
 			<div class="col-xs-4 text-left">
 				<ol class="breadcrumb">
 					<li><a href="#">公司货架</a></li>
-					<li><a href="#" class="active">添加公司货架</a></li>
+					<li><a href="#" class="active">添加</a></li>
 				</ol>
 			</div>
 		</div>
