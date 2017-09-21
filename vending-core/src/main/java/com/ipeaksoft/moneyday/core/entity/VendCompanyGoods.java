@@ -17,6 +17,8 @@ public class VendCompanyGoods {
 
     private Date updateTime;
 
+    private Integer salesAmount;
+
     public Integer getId() {
         return id;
     }
@@ -71,5 +73,13 @@ public class VendCompanyGoods {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getSalesAmount() {
+        return salesAmount;
+    }
+
+    public void setSalesAmount(Integer salesAmount) {
+        this.salesAmount = salesAmount;
     }
 }
