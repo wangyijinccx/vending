@@ -32,7 +32,10 @@ public class VendGoodsService extends BaseService {
 
 	public int updateByPrimaryKeySelective(VendGoods record) {
 		return vendGoodsMapper.updateByPrimaryKeySelective(record);
+	}
 
+	public int updateStatus(Integer goods_id) {
+		return vendGoodsMapper.updateStatus(goods_id);
 	}
 
 }

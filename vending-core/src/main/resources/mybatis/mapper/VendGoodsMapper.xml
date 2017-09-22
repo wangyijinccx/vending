@@ -186,4 +186,8 @@
   <select id="selectNum" resultType="int">
 	 select count(*) from tb_vend_goods 
   </select>
+  
+  <update id="updateStatus" parameterType="java.lang.Integer">
+	 update tb_vend_company_goods set `status` = '0'  where  goods_id = #{goods_id,jdbcType=INTEGER}
+ </update>
 </mapper>

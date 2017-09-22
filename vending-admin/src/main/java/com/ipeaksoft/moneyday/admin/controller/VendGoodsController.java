@@ -116,6 +116,10 @@ public class VendGoodsController extends BaseController {
 				if (vendGoodsService.updateByPrimaryKeySelective(model) < 1) {
 					result = "{\"status\":true,\"msg\":\"更新失败\"}";
 				}
+			    if(0 == vendGoods.getStatus()){
+			    	//下架商品，同时下架每家公司的商品
+			    	vendGoodsService.updateStatus(vendGoods.getId());
+			    }
 			}
 
 		} catch (Exception e) {

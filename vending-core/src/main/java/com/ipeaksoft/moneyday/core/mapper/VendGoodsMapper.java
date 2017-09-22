@@ -23,4 +23,6 @@ public interface VendGoodsMapper {
 			@Param(value = "pageSize") Integer length);
 
 	int selectNum();
+	
+	int updateStatus(@Param(value = "goods_id") Integer goods_id);
 }
