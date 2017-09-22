@@ -86,27 +86,43 @@ div.dataTables_info {
 		</div>
 		<!-- /.modal -->
 
+		<div>
+
+			<div class="row padding-15-tb" style="float: left;width:50%">
+				<div class="col-xs-12">
+					<table id="datalist"
+						class="table table-striped table-bordered table-condensed">
+						<thead>
+							<tr>
+								<th>已上架</th>
+								<th>商品</th>
+								<th>数量</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
 
 
-		<div class="row padding-15-tb">
-			<div class="col-xs-12">
-				<table id="datalist"
-					class="table table-striped table-bordered table-condensed">
-					<thead>
-						<tr>
-							<th>序号</th>
-							<th>商品</th>
-							<th>原价</th>
-							<th>折扣</th>
-							<th>实际价格</th>
-							<th>数量</th>
-							<th>状态</th>
-							<th>操作</th>
-						</tr>
-					</thead>
-					<tbody>
-					</tbody>
-				</table>
+			<div class="row padding-15-tb" style="float: right;width:50%">
+				<div class="col-xs-12">
+					<table id="datalist2"
+						class="table table-striped table-bordered table-condensed">
+						<thead>
+							<tr>
+								<th>未上架</th>
+								<th>商品</th>
+								<th>数量</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -143,13 +159,54 @@ div.dataTables_info {
 															"data" : "name"
 														},
 														{
-															"data" : "originalPrice"
+															"data" : "num"
 														},
 														{
-															"data" : "discount"
+															"render" : function(
+																	data, type,
+																	row) {
+																return '<a type="button" class="btn btn-primary btn-xs" href="${pageContext.request.contextPath}/goods/update?id='
+																		+ row.id
+																		+ '">编辑</a>'
+																		+ '<button class="btn btn-primary btn-xs" type="button" onclick="btn('
+																		+ row.id
+																		+ ')">上货</button>'
+															}
+														}
+
+												],
+												"oLanguage" : {
+													"sUrl" : "${pageContext.request.contextPath}/thirdpart_framework/jquery-datatable/language/zh_CN_goods.json"
+												}
+											});
+
+							var table2 = $('#datalist2')
+									.dataTable(
+											{
+												"bAutoWidth" : false,
+												"bPaginate" : true, //是否分页。
+												"bServerSide" : true,
+												"bProcessing" : true,
+												"searching" : false,
+												"bLengthChange" : true,
+												"scrollCollapse" : true,
+												"order" : [ [ 0, "desc" ] ],
+												//"scrollY": "400px",
+												"pagingType" : "full_numbers",
+												"aLengthMenu" : [ 20, 50, 100 ],
+												// "dom": '<"toolbar">frtip',
+												// "sAjaxSource": "Handler.ashx?actionname=getdatalist2",
+												"ajax" : {
+													"url" : "${pageContext.request.contextPath}/goods/data_load",
+													"dataType" : "json",
+													"method" : "POST"
+												},
+												"columns" : [
+														{
+															"data" : "id"
 														},
 														{
-															"data" : "actualPrice"
+															"data" : "name"
 														},
 														{
 															"data" : "num"
@@ -158,35 +215,20 @@ div.dataTables_info {
 															"render" : function(
 																	data, type,
 																	row) {
-																return '0' == row.status ? "下架"
-																		: "正常";
-															}
-														},
-														{
-															"render" : function(
-																	data, type,
-																	row) {
-																if(1 == row.status){
-																	return '<a type="button" class="btn btn-primary btn-xs" href="${pageContext.request.contextPath}/goods/update?id='
-																	+ row.id
-																	+ '">编辑</a>'
-																	+ '<button class="btn btn-primary btn-xs" type="button" onclick="btn('
-																	+ row.id
-																	+ ')">上货</button>'
-																}else{
-																	return '<a type="button" class="btn btn-primary btn-xs" href="${pageContext.request.contextPath}/goods/update?id='
-																	+ row.id
-																	+ '">编辑</a>'
-																}
-																
+																return '<a type="button" class="btn btn-primary btn-xs" href="${pageContext.request.contextPath}/goods/update?id='
+																		+ row.id
+																		+ '">编辑</a>'
+																		+ '<button class="btn btn-primary btn-xs" type="button" onclick="btn('
+																		+ row.id
+																		+ ')">上货</button>'
 															}
 														}
 
 												],
 												"oLanguage" : {
-													"sUrl" : "${pageContext.request.contextPath}/thirdpart_framework/jquery-datatable/language/zh_CN.json"
+													"sUrl" : "${pageContext.request.contextPath}/thirdpart_framework/jquery-datatable/language/zh_CN_goods.json"
 												}
-											});
+											})
 
 						});
 		function search() {

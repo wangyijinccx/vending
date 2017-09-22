@@ -33,7 +33,7 @@
 							<li class=""><a
 								href="${pageContext.request.contextPath}/company/published">公司货架列表</a></li>
 							<li class=""><a
-								href="#">添加商品</a></li>
+								href="${pageContext.request.contextPath}/company/goodsmanager">添加商品</a></li>
 						</ul></li>
 				</security:authorize>
 				

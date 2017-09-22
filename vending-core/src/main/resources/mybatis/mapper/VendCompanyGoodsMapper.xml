@@ -125,4 +125,44 @@
       sales_amount = #{salesAmount,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <select id="selectExist" resultType="java.util.HashMap"
+		parameterType="java.lang.Integer">
+	SELECT vg.id,vg.`name`,vg.num total,vcg.num from tb_vend_company_goods vcg
+	LEFT JOIN tb_vend_goods vg on vcg.goods_id = vg.id
+	where vcg.company_id = #{company_id,jdbcType=INTEGER} and vcg.`status` =
+	'1' and vg.`status` ='1'
+	order by vg.id 
+	<if test="currentPage !=null and pageSize != null">
+    <![CDATA[  LIMIT #{currentPage,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER} ]]>
+		</if>
+  </select>
+  
+  <select id="selectExistNum" resultType="int" parameterType="java.lang.Integer">
+    SELECT count(*) from tb_vend_company_goods vcg
+	LEFT JOIN tb_vend_goods vg on vcg.goods_id = vg.id
+	where vcg.company_id = #{company_id,jdbcType=INTEGER} and vcg.`status` =
+	'1' and vg.`status` ='1'
+  </select>
+  
+
+  <select id="selectNotHave" resultType="java.util.HashMap"
+		parameterType="java.lang.Integer">
+	SELECT vg.id,vg.`name`,vg.num total from tb_vend_goods vg where id not
+	in (SELECT vcg.goods_id from tb_vend_company_goods vcg where
+	vcg.company_id =  #{company_id,jdbcType=INTEGER} and vcg.`status` = '1') and and vg.`status` ='1';
+	order by vg.id
+	<if test="currentPage !=null and pageSize != null">
+    <![CDATA[  LIMIT #{currentPage,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER} ]]>
+		</if>
+  </select>
+  
+   <select id="selectNotHaveNum" resultType="int" parameterType="java.lang.Integer">
+    SELECT count(*) from tb_vend_goods vg where id not
+	in (SELECT vcg.goods_id from tb_vend_company_goods vcg where
+	vcg.company_id =  #{company_id,jdbcType=INTEGER} and vcg.`status` = '1') and and vg.`status` ='1';
+  </select>
+  
+  
 </mapper>
