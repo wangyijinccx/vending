@@ -27,7 +27,7 @@ import com.ipeaksoft.moneyday.api.service.MessageHanlerService;
  * 
  */
 @Controller
-public class CommWechatContrller extends BaseController {
+public class VendWechatContrller extends BaseController {
 	private static final String AUTH_TOKEN = "xiguamei";
     
 	@Autowired
