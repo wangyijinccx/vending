@@ -33,4 +33,11 @@ public interface VendCompanyGoodsMapper {
 			@Param("pageSize") int pageSize);
 
 	int selectNotHaveNum(@Param("company_id") Integer company_id);
+
+	List<VendCompanyGoods> selectByCompanyId(Integer id);
+
+	List<VendCompanyGoods> selectByGoodsId(Integer id);
+
+	VendCompanyGoods selectByGoodsAndCompanyId(@Param("goodsId") Integer goodsId,
+			@Param("companyId") int companyId);
 }

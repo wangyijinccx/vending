@@ -129,7 +129,7 @@
 
   <select id="selectExist" resultType="java.util.HashMap"
 		parameterType="java.lang.Integer">
-	SELECT vg.id,vg.`name`,vg.num total,vcg.num from tb_vend_company_goods vcg
+	SELECT vg.id,vg.`name`,vcg.sales_amount snum,vcg.num ,vg.num inventory from tb_vend_company_goods vcg
 	LEFT JOIN tb_vend_goods vg on vcg.goods_id = vg.id
 	where vcg.company_id = #{company_id,jdbcType=INTEGER} and vcg.`status` =
 	'1' and vg.`status` ='1'
@@ -149,9 +149,9 @@
 
   <select id="selectNotHave" resultType="java.util.HashMap"
 		parameterType="java.lang.Integer">
-	SELECT vg.id,vg.`name`,vg.num total from tb_vend_goods vg where id not
+	SELECT vg.id,vg.`name`,vg.num  from tb_vend_goods vg where id not
 	in (SELECT vcg.goods_id from tb_vend_company_goods vcg where
-	vcg.company_id =  #{company_id,jdbcType=INTEGER} and vcg.`status` = '1') and and vg.`status` ='1';
+	vcg.company_id =  #{company_id,jdbcType=INTEGER} and vcg.`status` = '1')  and vg.`status` ='1'
 	order by vg.id
 	<if test="currentPage !=null and pageSize != null">
     <![CDATA[  LIMIT #{currentPage,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER} ]]>
@@ -161,8 +161,30 @@
    <select id="selectNotHaveNum" resultType="int" parameterType="java.lang.Integer">
     SELECT count(*) from tb_vend_goods vg where id not
 	in (SELECT vcg.goods_id from tb_vend_company_goods vcg where
-	vcg.company_id =  #{company_id,jdbcType=INTEGER} and vcg.`status` = '1') and and vg.`status` ='1';
+	vcg.company_id =  #{company_id,jdbcType=INTEGER} and vcg.`status` = '1')  and vg.`status` ='1'
   </select>
   
+  <select id="selectByCompanyId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_vend_company_goods
+    where company_id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByGoodsId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_vend_company_goods
+    where goods_id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  
+  <select id="selectByGoodsAndCompanyId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_vend_company_goods
+    where goods_id = #{goodsId,jdbcType=INTEGER} and company_id = #{companyId,jdbcType=INTEGER}
+          and status = '1'
+  </select>
   
 </mapper>

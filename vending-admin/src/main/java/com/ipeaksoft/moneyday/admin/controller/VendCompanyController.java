@@ -47,11 +47,6 @@ public class VendCompanyController extends BaseController {
 		return "/company/create";
 	}
 
-	@RequestMapping(value = "/goodsmanager")
-	public String goodsManager(ModelMap map, Principal principal,
-			HttpServletRequest request) {
-		return "/company/goods_manager";
-	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/data_load")

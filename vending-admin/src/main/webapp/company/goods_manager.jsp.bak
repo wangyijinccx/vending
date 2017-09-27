@@ -60,7 +60,6 @@ div.dataTables_info {
 				<div class="form-group form-inline">
 					<input type="hidden" class="form-control input-lg" id="companyId"
 						value="${company.id }" />
-					<input type="hidden" id='goodId'></input>
 				</div>
 			</div>
 		</div>
@@ -74,7 +73,34 @@ div.dataTables_info {
 			</div>
 		</div>
 
-		
+		<!-- 模态框（Modal） -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">×</button>
+						<h4 class="modal-title" id="myModalLabel">商品数量</h4>
+					</div>
+					<div class="modal-body">
+						<input type="hidden" id='goodId'></input>
+						 <input name="num"
+							type="text" class="form-control" id="num" placeholder="商品数量"
+							required="required">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+						</button>
+						<button type="button" class="btn btn-primary" id="save">
+							提交更改</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
 
 		<div>
 
@@ -166,10 +192,12 @@ div.dataTables_info {
 															"render" : function(
 																	data, type,
 																	row) {
-																return  '<button class="btn btn-primary btn-xs" type="button" onclick="down('
-																+ row.id
-																+ ')">下架</button>'
-																		
+																return '<a type="button" class="btn btn-primary btn-xs" href="${pageContext.request.contextPath}/goods/update?id='
+																		+ row.id
+																		+ '">下架</a>'
+																		+'<button class="btn btn-primary btn-xs" type="button" onclick="shelves('
+																		+ row.id
+																		+ ')">上货</button>'
 															}
 														}
 
@@ -235,6 +263,13 @@ div.dataTables_info {
 		}
 
 		function shelves(id) {
+			$("#goodId").val(id);
+			$("#myModal").modal();
+		}
+
+		$("#save").click(function() {
+			var num = $("#num").val();
+			var goodId = $("#goodId").val();
 			var companyId = $("#companyId").val();
 
 			$.ajax({
@@ -242,7 +277,8 @@ div.dataTables_info {
 				url : '${pageContext.request.contextPath}/companygoods/shelves',
 				
 				data : {
-					goodId : id,
+					num : num,
+					goodId : goodId,
 					companyId : companyId
 				},
 				dataType:"json",
@@ -253,45 +289,20 @@ div.dataTables_info {
 				success : function(data) {
 					if (200 == data.status) {
 						alert(data.msg);
+						$("#num").val("");
+						$('#myModal').modal('hide');
 						$('#datalist2').dataTable().fnDraw();
-						$('#datalist').dataTable().fnDraw();
+						//window.location = flushurl;
 					} else {
 						alert(data.msg);
 					}
 				}
 			});
-		}
-		
-		function down(id) {
-			var companyId = $("#companyId").val();
+		});
 
-			$.ajax({
-				type : "POST",
-				url : '${pageContext.request.contextPath}/companygoods/down',
-				
-				data : {
-					goodId : id,
-					companyId : companyId
-				},
-				dataType:"json",
-				error : function(request) {
-					console.inf('connection error');
-
-				},
-				success : function(data) {
-					if (200 == data.status) {
-						alert(data.msg);
-						$('#datalist2').dataTable().fnDraw();
-						$('#datalist').dataTable().fnDraw();
-					} else {
-						alert(data.msg);
-					}
-				}
-			});
-		}
-
-
-		
+		$('#myModal').on('hide.bs.modal', function() {
+			$("#num").val("");
+		})
 	</script> </main>
 </body>
 </html>

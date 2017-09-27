@@ -32,8 +32,6 @@
 								href="${pageContext.request.contextPath}/company/create">添加公司货架</a></li>
 							<li class=""><a
 								href="${pageContext.request.contextPath}/company/published">公司货架列表</a></li>
-							<li class=""><a
-								href="${pageContext.request.contextPath}/company/goodsmanager">添加商品</a></li>
 						</ul></li>
 				</security:authorize>
 				
