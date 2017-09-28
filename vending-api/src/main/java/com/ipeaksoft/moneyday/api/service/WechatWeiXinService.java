@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URL;
 import java.util.Date;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -14,6 +16,8 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ipeaksoft.moneyday.api.wxpay.WxPayUtil;
+import com.ipeaksoft.moneyday.api.wxpay.XMLUtil;
 import com.ipeaksoft.moneyday.core.entity.CommUser;
 import com.ipeaksoft.moneyday.core.service.CommUserService;
 import com.ipeaksoft.moneyday.core.service.HttpService;
@@ -27,6 +31,7 @@ public class WechatWeiXinService extends BaseService {
 
 	public static final String APPID_QDJL = "wx6b7c4049eaf68d0e";
 	public static final String APPSECRET_QDJL = "6dcb03d6802b365966eb3b264dac4f8e";
+	public static final String MCHID = "1305314501";// 商户号
 
 	private static Logger logger = LoggerFactory
 			.getLogger(WechatWeiXinService.class.getName());
@@ -253,5 +258,30 @@ public class WechatWeiXinService extends BaseService {
 		oauthUrl = String.format(oauthUrl, APPID_QDJL, redirectUrl, scope,
 				status);
 		return oauthUrl;
+	}
+
+	public Object unifiedorder(String orderId, String price, String ip,
+			String notifyUrl, String openId) {
+		try {
+			// 统一下单
+			TreeMap<String, String> params = new TreeMap<>();
+			params.put("mch_appid", APPID_QDJL);// 企业公众号appid
+			params.put("mch_id", MCHID);// 微信支付分配的商户号
+			params.put("nonce_str", WxPayUtil.getNonceStr());// 随机字符串，不长于32位
+			params.put("sign", WxPayUtil.buildRequestMysign(params));// 签名
+			params.put("out_trade_no", orderId);// 商户订单号，需保持唯一性
+			params.put("total_fee", price);// 订单总金额，单位为分
+			params.put("spbill_create_ip", ip);// 用户端ip
+			params.put("notify_url", notifyUrl);// 异步接收微信支付结果通知的回调地址
+			params.put("trade_type", "JSAPI");// 交易类型
+			params.put("openid", openId);// 用户标示
+			String resultXML = WxPayUtil.httpClientResult(params);
+			// 交易结果处理
+			Map<String, String> resultMap = XMLUtil.doXMLParse(resultXML);
+			return resultMap;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

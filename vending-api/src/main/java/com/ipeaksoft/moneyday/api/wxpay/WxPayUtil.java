@@ -25,7 +25,6 @@ import javax.net.ssl.SSLContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -70,26 +69,7 @@ public class WxPayUtil {
         return UUID.randomUUID().toString().replace("-", "").toUpperCase();
     }
 
-    /*
-	 *  读取 apiclient_cert.p12 证书
-	 * @return
-	 * @throws Exception
-	 */
-//	public static SSLConnectionSocketFactory readCustomSSL(String certPath) throws Exception {
-//	    KeyStore keyStore  = KeyStore.getInstance("PKCS12");
-//        FileInputStream instream = new FileInputStream(new File(certPath));
-//        logger.debug("instream "+instream);
-//        try {
-//            keyStore.load(instream, WxPayConfig.MCHID.toCharArray());
-//        } finally {
-//            instream.close();
-//        }
-//        SSLContext sslcontext = SSLContexts.custom().loadKeyMaterial(keyStore, WxPayConfig.MCHID.toCharArray()).build();
-//        
-//        SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory( sslcontext, new String[] { "TLSv1" }, null,
-//                SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);
-//        return sslsf;
-//	}
+  
     
 	/**
 	 * httpClient 带证书请求
@@ -101,7 +81,6 @@ public class WxPayUtil {
 		StringBuffer reultBuffer = new StringBuffer();
 	
 		String requestXML = XMLUtil.getRequestXml(parms);// 封装好的请求XML
-//		SSLConnectionSocketFactory sslsf = readCustomSSL(certPath);//获取证书
 		
 		HttpPost httpPost = new HttpPost(WxPayConfig.POST_URL);
         CloseableHttpClient httpclient = HttpClients.custom().setSSLSocketFactory(sslsf).build();
