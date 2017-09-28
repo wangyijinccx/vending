@@ -1,11 +1,18 @@
 package com.ipeaksoft.moneyday.admin.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.net.URLEncoder;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import net.glxn.qrgen.core.image.ImageType;
+import net.glxn.qrgen.javase.QRCode;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -116,10 +123,10 @@ public class VendGoodsController extends BaseController {
 				if (vendGoodsService.updateByPrimaryKeySelective(model) < 1) {
 					result = "{\"status\":true,\"msg\":\"更新失败\"}";
 				}
-			    if(0 == vendGoods.getStatus()){
-			    	//下架商品，同时下架每家公司的商品
-			    	vendGoodsService.updateStatus(vendGoods.getId());
-			    }
+				if (0 == vendGoods.getStatus()) {
+					// 下架商品，同时下架每家公司的商品
+					vendGoodsService.updateStatus(vendGoods.getId());
+				}
 			}
 
 		} catch (Exception e) {
@@ -150,4 +157,45 @@ public class VendGoodsController extends BaseController {
 		return result;
 	}
 
+	/**
+	 * 生成二维码
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getqr")
+	public void getQR(HttpServletRequest request, HttpServletResponse response) {
+		String goodId = request.getParameter("id");
+		try {
+			String redirectUrl = "/oauth/code";
+			redirectUrl = URLEncoder.encode(redirectUrl, "UTF-8");
+			String url = getRequestCodeUrl(redirectUrl, "snsapi_base", goodId);
+			ByteArrayOutputStream out = QRCode.from(url).to(ImageType.PNG)
+					.stream();
+			response.setContentType("image/png");
+			response.setContentLength(out.size());
+			OutputStream outStream = response.getOutputStream();
+			outStream.write(out.toByteArray());
+
+			outStream.flush();
+			outStream.close();
+
+		} catch (Exception e) {
+		}
+	}
+
+	/**
+	 * 生成用于获取access_token的Code的URL
+	 * 
+	 * @param redirectUrl
+	 * @return
+	 */
+	public String getRequestCodeUrl(String redirectUrl, String scope,
+			String status) {
+		String oauthUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s#wechat_redirect";
+		oauthUrl = String.format(oauthUrl, APPID_QDJL, redirectUrl, scope,
+				status);
+		return oauthUrl;
+	}
 }

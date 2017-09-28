@@ -32,29 +32,6 @@ public class VendOauthContrller extends BaseController {
 	CommMemCashService commMemCashService;
 
 	/**
-	 * 获取code_url
-	 * 
-	 * @param goodId
-	 * @param companyId
-	 * @param price
-	 * @param num
-	 */
-	@ResponseBody
-	@RequestMapping(value = "oauth")
-	public String oauth(String goodId) {
-		// 价格可以从数据库取 也可以页面传，先考虑页面传
-		String url = "";
-		try {
-			String redirectUrl = "/oauth/code";
-			redirectUrl = URLEncoder.encode(redirectUrl, "UTF-8");
-			url = wechatWeiXinService.getRequestCodeUrl(redirectUrl,
-					"snsapi_base", goodId);
-		} catch (UnsupportedEncodingException e) {
-		}
-		return url;
-	}
-
-	/**
 	 * 授权跳转接口，然后调整交易界面
 	 * @return
 	 */

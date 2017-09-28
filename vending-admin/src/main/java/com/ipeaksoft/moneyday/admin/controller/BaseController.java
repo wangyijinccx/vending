@@ -23,7 +23,10 @@ public class BaseController {
 	public static final String ali_url_test = "https://openapi.alipaydev.com/gateway.do";
 	public static final String app_id_test = "2016080500175638";// 付宝分配给开发者的应用ID
 	public static final String alipublicKey_test = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnu8g+n8QpYGEeq2QRHebJHPkRxPP9iPKGp51B9B+/Raxn1XXmuUw+GlLCiWbL7WF+Pm1ZKz5gAx3zXvcoYiOVWeC+hIuxM4UU5iI0ag0NndVUngntlMoUvr6yNCPw5bcL6KKE8+dXsrKXvDySippBfRUKLfPZaqCJ0Pxo22jBvwoM2McSdWOnBX7dw+1dbde06DAWuj6yv7dUnKDe+3+Uqup00JeYPLGXLFzZ/AhMzcktnDH7Y5B0Y1PRo9Lv7vzBASqnxrODoQAkyGhn35YGbRF+96IyLg333pjtZiyTz8KY2PjkIsw/wO3zHsWATov6xNnN/TZfYekEwRvC3bwiQIDAQAB";
+	public static final String APPID_QDJL = "wx6b7c4049eaf68d0e";
 
+	
+	
 	// 取得登录用户
 	public AdminUser getUser() {
 		String name = SpringSecurityUtils.getCurrentUserName();

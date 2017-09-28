@@ -173,6 +173,9 @@ div.dataTables_info {
 																	+ '<button class="btn btn-primary btn-xs" type="button" onclick="btn('
 																	+ row.id
 																	+ ')">上货</button>'
+																	+'<a type="button" class="btn btn-primary btn-xs" href="${pageContext.request.contextPath}/goods/getqr?id='
+																	+ row.id
+																	+ '">生成二维码</a>'
 																}else{
 																	return '<a type="button" class="btn btn-primary btn-xs" href="${pageContext.request.contextPath}/goods/update?id='
 																	+ row.id

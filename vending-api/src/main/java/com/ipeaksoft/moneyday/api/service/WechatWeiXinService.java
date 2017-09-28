@@ -246,19 +246,6 @@ public class WechatWeiXinService extends BaseService {
 
 	}
 
-	/**
-	 * 生成用于获取access_token的Code的Url
-	 * 
-	 * @param redirectUrl
-	 * @return
-	 */
-	public String getRequestCodeUrl(String redirectUrl, String scope,
-			String status) {
-		String oauthUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s#wechat_redirect";
-		oauthUrl = String.format(oauthUrl, APPID_QDJL, redirectUrl, scope,
-				status);
-		return oauthUrl;
-	}
 
 	public Object unifiedorder(String orderId, String price, String ip,
 			String notifyUrl, String openId) {
