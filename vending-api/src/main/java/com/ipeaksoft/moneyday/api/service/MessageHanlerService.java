@@ -35,8 +35,18 @@ public class MessageHanlerService {
 				return subscribe(message);
 			} else if (EventType.UNSUB.equals(event)) {
 				unsubscribe(message);
+			} else if(EventType.SCAN.equals(event)){
+				scan(message);
 			}
 		}
+		return "";
+	}
+	
+	//带参数二维码事件
+	public String scan(Message message){
+		// 为用户添加公司  
+		String openid = message.getFromUserName();
+		String companyId = message.getEventKey();
 		return "";
 	}
 

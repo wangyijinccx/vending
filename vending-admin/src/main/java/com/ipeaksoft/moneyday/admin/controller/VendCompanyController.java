@@ -1,10 +1,16 @@
 package com.ipeaksoft.moneyday.admin.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.ipeaksoft.moneyday.admin.util.JsonTransfer;
 import com.ipeaksoft.moneyday.core.entity.VendCompany;
+import com.ipeaksoft.moneyday.core.service.HttpService;
 import com.ipeaksoft.moneyday.core.service.VendCompanyService;
 
 @Controller
@@ -23,6 +31,9 @@ public class VendCompanyController extends BaseController {
 
 	@Autowired
 	private VendCompanyService vendCompanyService;
+
+	@Autowired
+	private HttpService httpService;
 
 	@RequestMapping(value = "/published")
 	public String published(ModelMap map, Principal principal,
@@ -47,7 +58,6 @@ public class VendCompanyController extends BaseController {
 		return "/company/create";
 	}
 
-	
 	@ResponseBody
 	@RequestMapping(value = "/data_load")
 	public String data_load(HttpServletRequest request) throws Exception {
@@ -110,6 +120,49 @@ public class VendCompanyController extends BaseController {
 			result = "{\"status\":true,\"msg\":\"更新失败\"}";
 		}
 		return result;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/readcode")
+	public void readCode(HttpServletRequest request,
+			HttpServletResponse response) {
+		try {
+			String companyId = request.getParameter("id");
+			String url = "http://localhost:8080/vending-api/readcode?companyId="
+					+ companyId;
+			String callback = httpService.get(url);
+			JSONObject json = JSONObject.parseObject(callback);
+			if (json != null && "200".equals(json.getString("result"))) {
+				String code = json.getString("code");
+				URL codeUrl = new URL(code);
+				HttpURLConnection conn = (HttpURLConnection) codeUrl
+						.openConnection();
+				conn.setRequestMethod("GET");
+				conn.setConnectTimeout(5 * 1000);
+				InputStream inStream = conn.getInputStream();// 通过输入流获取图片数据
+				byte data[] = readInputStream(inStream);
+				// inStream.read(data); //读数据
+				// inStream.close();
+				response.setContentType("image/jpg"); // 设置返回的文件类型
+				OutputStream os = response.getOutputStream();
+				os.write(data);
+				os.flush();
+				os.close();
+			}
+		} catch (Exception e) {
+
+		}
+	}
+
+	public static byte[] readInputStream(InputStream inStream) throws Exception {
+		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+		byte[] buffer = new byte[2048];
+		int len = 0;
+		while ((len = inStream.read(buffer)) != -1) {
+			outStream.write(buffer, 0, len);
+		}
+		inStream.close();
+		return outStream.toByteArray();
 	}
 
 }

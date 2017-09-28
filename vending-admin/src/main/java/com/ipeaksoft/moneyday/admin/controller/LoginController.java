@@ -31,7 +31,7 @@ public class LoginController extends BaseController{
 		if(4 == user.getLevel()) {
 			return "redirect:/weightAccount/weight_account_list.jsp";
 		} else {
-			return "redirect:/bill/checked/list";
+			return "redirect:/company/published";
 		}
 	}
 

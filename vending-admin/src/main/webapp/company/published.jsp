@@ -121,6 +121,7 @@ div.dataTables_info {
 										{
 											"render" : function(data, type, row) {
 												return '<a type="button" class="btn btn-primary btn-xs" href="${pageContext.request.contextPath}/company/update?id=' + row.id + '">编辑</a>'
+												        +'<a type="button" class="btn btn-primary btn-xs" href="${pageContext.request.contextPath}/company/readcode?id=' + row.id + '">二维码</a>'
 														+'<a type="button" class="btn btn-primary btn-xs" href="${pageContext.request.contextPath}/companygoods/goodsmanager?id=' + row.id + '">添加商品</a>'
 											}
 										}
