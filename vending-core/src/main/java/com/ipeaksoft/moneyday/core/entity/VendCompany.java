@@ -17,6 +17,8 @@ public class VendCompany {
 
     private Byte status;
 
+    private String code;
+
     public Integer getId() {
         return id;
     }
@@ -71,5 +73,13 @@ public class VendCompany {
 
     public void setStatus(Byte status) {
         this.status = status;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

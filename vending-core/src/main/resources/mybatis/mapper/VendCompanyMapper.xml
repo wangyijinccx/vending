@@ -9,9 +9,10 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, company, address, tel, create_time, update_time, status
+    id, company, address, tel, create_time, update_time, status, code
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -26,10 +27,10 @@
   <insert id="insert" parameterType="com.ipeaksoft.moneyday.core.entity.VendCompany" >
     insert into tb_vend_company (id, company, address, 
       tel, create_time, update_time, 
-      status)
+      status, code)
     values (#{id,jdbcType=INTEGER}, #{company,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{tel,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=TINYINT})
+      #{status,jdbcType=TINYINT}, #{code,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ipeaksoft.moneyday.core.entity.VendCompany" >
     insert into tb_vend_company
@@ -55,6 +56,9 @@
       <if test="status != null" >
         status,
       </if>
+      <if test="code != null" >
+        code,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -77,6 +81,9 @@
       </if>
       <if test="status != null" >
         #{status,jdbcType=TINYINT},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -101,6 +108,9 @@
       <if test="status != null" >
         status = #{status,jdbcType=TINYINT},
       </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -111,7 +121,8 @@
       tel = #{tel,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=TINYINT}
+      status = #{status,jdbcType=TINYINT},
+      code = #{code,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   

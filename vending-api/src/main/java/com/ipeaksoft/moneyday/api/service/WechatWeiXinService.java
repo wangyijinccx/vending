@@ -1,5 +1,9 @@
 package com.ipeaksoft.moneyday.api.service;
 
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.net.URL;
 import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
@@ -21,13 +25,8 @@ public class WechatWeiXinService extends BaseService {
 	@Autowired
 	CommUserService commUserService;
 
-	
-	// 西瓜妹
-    public static final String APPID_QDJL       = "wxbcbd557ee763bf7c";
-    public static final String APPSECRET_QDJL   = "46d5922acf5c18b6c86f5eced5ca4d11";
-	// 钱袋精灵
-	//public static final String APPID_QDJL = "wx0689b1b1de2de97f";
-	//public static final String APPSECRET_QDJL = "2c7dd9a2d0c99c90044f23b93975d22d";
+	public static final String APPID_QDJL = "wx6b7c4049eaf68d0e";
+	public static final String APPSECRET_QDJL = "6dcb03d6802b365966eb3b264dac4f8e";
 
 	private static Logger logger = LoggerFactory
 			.getLogger(WechatWeiXinService.class.getName());
@@ -47,7 +46,7 @@ public class WechatWeiXinService extends BaseService {
 	}
 
 	public void binging(String unionid) {
-		
+
 	}
 
 	public String getXGMOpenid(String code) {
@@ -194,4 +193,52 @@ public class WechatWeiXinService extends BaseService {
 		long hour = between % (24 * 3600) / 3600;
 		return day * 24 + hour;
 	}
+	
+	public Object downCode(Integer companyId, String path) {
+		JSONObject result = new JSONObject();
+		// 获取access_token
+		String token = getTokenGlobal();
+		// 永久字符串型二维码
+		String codeInfo = "{\"action_name\": \"QR_LIMIT_SCENE\", \"action_info\": {\"scene\": {\"scene_id\": "
+				+ companyId + "}}}";
+		String url = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token="
+				+ token;
+		String callback = httpService.postJson(url, codeInfo);
+		JSONObject json = JSONObject.parseObject(callback);
+		if (null == json) {
+			result.put("result", 301);
+			result.put("msg", "生成二维码失败");
+			return result;
+		}
+		String ticket = json.getString("ticket");
+		String codeUrl = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket="
+				+ ticket;
+		save(codeUrl, path + companyId + ".png");
+		result.put("result", 200);
+		result.put("msg", "获取二维码成功");
+		return result;
+	}
+
+	public void save(String codeurl, String code) {
+		try {
+			URL url = new URL(codeurl);
+			DataInputStream dataInputStream = new DataInputStream(
+					url.openStream());
+			FileOutputStream fileOutputStream = new FileOutputStream(new File(
+					code));
+
+			byte[] buffer = new byte[1024];
+			int length;
+
+			while ((length = dataInputStream.read(buffer)) > 0) {
+				fileOutputStream.write(buffer, 0, length);
+			}
+			dataInputStream.close();
+			fileOutputStream.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
 }

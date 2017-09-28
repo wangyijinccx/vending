@@ -23,6 +23,7 @@ public class BaseController {
 	public static final String PLAT_SECURE_KEY = "5e511d59019de14691b8f0f360bf6841";//数据同步
 	public static final String PLAT_ID ="1869527";//数据同步
 	public static final String gh_url = "http://101.201.253.175";//公会服务器地址
+	public static final  String PATH = "D:/codeimg/";
 
     public BaseController(){
         className = getClass().getName();
