@@ -40,8 +40,6 @@ public class VendMobileController extends BaseController {
 	@RequestMapping(value = "/published")
 	public ModelAndView published(ModelMap map, Principal principal,
 			HttpServletRequest request) {
-		String companyId = request.getParameter("id");
-		Integer comId = ("".equals(companyId)||null == companyId)?1:Integer.parseInt(companyId);
 		List<VendCompany> vcs =  vendCompanyService.selectAll(null, null);
 		ModelAndView mv = new ModelAndView();
 		mv.getModelMap().put("company", vcs);

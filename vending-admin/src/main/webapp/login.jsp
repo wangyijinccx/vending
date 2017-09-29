@@ -41,12 +41,16 @@ h1 {
 .w650 {
 	width: 650px;
 }
+.w651 {
+	width: 100%x;
+}
+
 </style>
 </head>
 <body>
-	<div class="container w650">
+	<div  id ="div1">
 		<div class="row">
-			<div class="col-xs-6 col-xs-offset-3 panel panel-default">
+			<div class="col-xs-6 col-xs-offset-3 panel panel-default" id ="div2">
 				<c:url var="loginUrl" value="/j_spring_security_check"></c:url>
 				<form class="form-horizontal" role="form" action="${loginUrl}"
 					method="POST">
@@ -83,4 +87,31 @@ h1 {
 		</div>
 	</div>
 </body>
+
+<script type="text/javascript">
+
+
+	if (navigator.userAgent.match(/(iPhone|iPod|Android|ios|SymbianOS)/i)) {
+		$('#div1').attr('class', 'container w651')
+		$('#div2')
+				.attr('class', 'col-xs-8 col-xs-offset-3 panel panel-default')
+		window.onload = function() {
+			document.addEventListener('touchstart', function(event) {
+				if (event.touches.length > 1) {
+					event.preventDefault();
+				}
+			})
+			var lastTouchEnd = 0;
+			document.addEventListener('touchend', function(event) {
+				var now = (new Date()).getTime();
+				if (now - lastTouchEnd <= 300) {
+					event.preventDefault();
+				}
+				lastTouchEnd = now;
+			}, false)
+		}
+	} else {
+		$('#div1').attr('class', 'container w650')
+	}
+</script> 
 </html>

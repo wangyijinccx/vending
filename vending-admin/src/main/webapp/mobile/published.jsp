@@ -5,7 +5,9 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no,email=no,adress=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <%@ include file="/common/meta.jsp"%>
 <style type="text/css">
 .logo_top_left {
@@ -76,7 +78,7 @@ div.dataTables_info {
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">×</button>
-						<h4 class="modal-title" id="myModalLabel">上货</h4>
+						<h4 class="modal-title" id="myModalLabel">商品数量</h4>
 					</div>
 					<div class="modal-body">
 						<input type="hidden" id='goodId'></input> <input name="num"
@@ -87,7 +89,9 @@ div.dataTables_info {
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 						</button>
 						<button type="button" class="btn btn-primary" id="save">
-							提交更改</button>
+							上货</button>
+						<button type="button" class="btn btn-primary" id="save">
+							下货</button>
 					</div>
 				</div>
 				<!-- /.modal-content -->
@@ -173,6 +177,21 @@ div.dataTables_info {
 											"sUrl" : "${pageContext.request.contextPath}/thirdpart_framework/jquery-datatable/language/zh_CN_mobile.json"
 										}
 									});
+							
+							
+							 document.addEventListener('touchstart',function (event) {  
+						            if(event.touches.length>1){  
+						                event.preventDefault();  
+						            }  
+						        })  
+						        var lastTouchEnd=0;  
+						        document.addEventListener('touchend',function (event) {  
+						            var now=(new Date()).getTime();  
+						            if(now-lastTouchEnd<=300){  
+						                event.preventDefault();  
+						            }  
+						            lastTouchEnd=now;  
+						        },false)  
 
 						});
 		function search() {

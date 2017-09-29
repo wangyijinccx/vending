@@ -29,7 +29,7 @@ public class LoginController extends BaseController{
 		AdminUser user = adminUserService.getUserByName(name);
 		request.getSession().setAttribute(USER_SESSION_KEY, user);
 		if(4 == user.getLevel()) {
-			return "redirect:/weightAccount/weight_account_list.jsp";
+			return "redirect:/mobile/published";
 		} else {
 			return "redirect:/company/published";
 		}
