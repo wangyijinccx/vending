@@ -88,9 +88,9 @@ div.dataTables_info {
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 						</button>
-						<button type="button" class="btn btn-primary" id="save">
+						<button type="button" class="btn btn-primary" id="up">
 							上货</button>
-						<button type="button" class="btn btn-primary" id="save">
+						<button type="button" class="btn btn-primary" id="down">
 							下货</button>
 					</div>
 				</div>
@@ -203,16 +203,18 @@ div.dataTables_info {
 			$("#myModal").modal();
 		}
 
-		$("#save").click(function() {
+		$("#up").click(function() {
 			var num = $("#num").val();
 			var goodId = $("#goodId").val();
+			var companyId = $("#companyid").val();
 
 			$.ajax({
 				type : "POST",
-				url : '${pageContext.request.contextPath}/goods/addnum',
+				url : '${pageContext.request.contextPath}/mobile/up',
 				data : {
 					num : num,
-					goodId : goodId
+					goodId : goodId,
+					companyId :companyId
 				},
 				error : function(request) {
 					console.inf('connection error');
@@ -231,6 +233,39 @@ div.dataTables_info {
 				}
 			});
 		});
+		
+		
+		$("#down").click(function() {
+			var num = $("#num").val();
+			var goodId = $("#goodId").val();
+			var companyId = $("#companyid").val();
+
+			$.ajax({
+				type : "POST",
+				url : '${pageContext.request.contextPath}/mobile/down',
+				data : {
+					num : num,
+					goodId : goodId,
+					companyId :companyId
+				},
+				error : function(request) {
+					console.inf('connection error');
+
+				},
+				success : function(data) {
+					if (200 == data) {
+						alert('下架成功');
+						$("#num").val("");
+						$('#myModal').modal('hide');
+						$('#datalist').dataTable().fnDraw();
+						//window.location = flushurl;
+					} else {
+						alert('上货失败');
+					}
+				}
+			});
+		});
+
 
 		$('#myModal').on('hide.bs.modal', function() {
 			$("#num").val("");
