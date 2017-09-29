@@ -1,0 +1,17 @@
+﻿{
+    "sProcessing":   "处理中...",
+    "sLengthMenu":   "_MENU_",
+    "sZeroRecords":  "没有匹配的记录",
+    "sInfo":         "",
+    "sInfoEmpty":    "",
+    "sInfoFiltered": "",
+    "sInfoPostFix":  "",
+    "sSearch":       "过滤:",
+    "sUrl":          "",
+    "oPaginate": {
+        "sFirst":    "首页",
+        "sPrevious": "上页",
+        "sNext":     "下页",
+        "sLast":     "末页"
+    }
+}
