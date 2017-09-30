@@ -11,7 +11,7 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand">天天赚钱自助售货</a>
+			<a class="navbar-brand">北极星自助售货</a>
 		</div>
 	</div>
 </div>

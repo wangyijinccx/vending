@@ -254,13 +254,13 @@ div.dataTables_info {
 				},
 				success : function(data) {
 					if (200 == data) {
-						alert('下架成功');
+						alert('下货成功');
 						$("#num").val("");
 						$('#myModal').modal('hide');
 						$('#datalist').dataTable().fnDraw();
 						//window.location = flushurl;
 					} else {
-						alert('上货失败');
+						alert('下货失败');
 					}
 				}
 			});
