@@ -17,14 +17,16 @@
 			<ul class="nav navbar-nav">
 				<security:authorize ifAnyGranted="R_ADMIN">
 					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#">付款<span class="caret"></span></a>
+						data-toggle="dropdown" href="#">用户管理<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li class=""><a
-								href="${pageContext.request.contextPath}/bill/checked/list">审核订单</a></li>
+								href="${pageContext.request.contextPath}/account/create">创建用户</a></li>
+								<li class=""><a
+								href="${pageContext.request.contextPath}/account/list">用户列表</a></li>
 						</ul></li>
 				</security:authorize>
 				
-				<security:authorize ifAnyGranted="R_ADMIN">
+				<security:authorize ifAnyGranted="R_ADMIN, R_OPERATOR">
 					<li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown" href="#">公司柜台管理<span class="caret"></span></a>
 						<ul class="dropdown-menu">
@@ -35,7 +37,7 @@
 						</ul></li>
 				</security:authorize>
 				
-				<security:authorize ifAnyGranted="R_ADMIN">
+				<security:authorize ifAnyGranted="R_ADMIN, R_OPERATOR">
 					<li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown" href="#">商品管理<span class="caret"></span></a>
 						<ul class="dropdown-menu">
@@ -43,6 +45,15 @@
 								href="${pageContext.request.contextPath}/goods/create">添加商品</a></li>
 							<li class=""><a
 								href="${pageContext.request.contextPath}/goods/published">商品列表</a></li>
+						</ul></li>
+				</security:authorize>
+				
+				<security:authorize ifAnyGranted="R_ADMIN">
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#">付款<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li class=""><a
+								href="${pageContext.request.contextPath}/bill/checked/list">审核订单</a></li>
 						</ul></li>
 				</security:authorize>
 				
