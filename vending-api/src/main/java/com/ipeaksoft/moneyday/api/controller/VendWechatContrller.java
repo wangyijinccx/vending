@@ -93,7 +93,7 @@ public class VendWechatContrller extends BaseController {
 	}
 
 	/**
-	 * 下载二维码图片到本地
+	 * 下载二维码图片到本地(公众号带参数二维码)
 	 * 
 	 * @param companyId
 	 * @return
@@ -120,7 +120,7 @@ public class VendWechatContrller extends BaseController {
 	}
 
 	/**
-	 * 保存二维URL到数据库
+	 * 保存二维URL到数据库(公众号带参数二维码)
 	 * 
 	 * @param companyId
 	 * @param path

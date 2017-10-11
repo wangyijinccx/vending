@@ -46,6 +46,11 @@ import com.ipeaksoft.moneyday.core.service.CommMemCashService;
 import com.ipeaksoft.moneyday.core.service.CommUserQdjlService;
 import com.ipeaksoft.moneyday.core.service.CommUserService;
 
+/**
+ * 旧
+ * @author sjk
+ *
+ */
 @Controller
 @RequestMapping(value = "/bill/checked")
 public class CommBillCheckedController extends BaseController {

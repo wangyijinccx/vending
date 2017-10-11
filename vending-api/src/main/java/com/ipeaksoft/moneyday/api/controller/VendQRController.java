@@ -27,6 +27,12 @@ public class VendQRController extends BaseController {
 	@Autowired
 	private HttpService httpService;
 
+	/**
+	 * 测试：二维码生成
+	 * @param request
+	 * @param type
+	 * @param response
+	 */
 	@ResponseBody
 	@RequestMapping("getParaQr")
 	public void getParaQr(HttpServletRequest request, Integer type,
@@ -51,6 +57,11 @@ public class VendQRController extends BaseController {
 		}
 	}
 
+	/**
+	 * 测试二维码生成
+	 * @param request
+	 * @param response
+	 */
 	@ResponseBody
 	@RequestMapping("getQr")
 	public void addForHost(HttpServletRequest request,

@@ -1,7 +1,5 @@
 package com.ipeaksoft.moneyday.api.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
@@ -35,14 +33,16 @@ public class VendOauthContrller extends BaseController {
 	 * 授权跳转接口，然后调整交易界面
 	 * @return
 	 */
+	@SuppressWarnings("unused")
 	@ResponseBody
 	@RequestMapping(value = "code")
 	public Object code() {
 		JSONObject result = new JSONObject();
 		String code = request.getParameter("code");
+		//商品id
 		String state = request.getParameter("state");
 		String openId = wechatWeiXinService.getOpenid(code);
-		// 跳转页面，带参数
+		// 跳转到商品详情页面
 		return result;
 	}
 
@@ -66,10 +66,11 @@ public class VendOauthContrller extends BaseController {
 		userCash.setOpenid(openId);
 		userCash.setAmount(balance); // 插入当前订单的提现金额
 		userCash.setOperator(Constant.SYSTEM); // 插入处理人，系统处理
-		userCash.setStatus(Byte.valueOf(Constant.ALIPAY_SUCCESS)); // 插入订单状态:成功
+		userCash.setStatus(Byte.valueOf(Constant.ALIPAY_DO)); // 插入订单状态:成功
 		userCash.setType((byte) 1);// 微信支付
 		userCash.setCreateTime(new Date()); // 插入当前日期
 		commMemCashService.insertSelective(userCash);
+		
 
 		// 获取订单信息
 		String orderId = "";
@@ -83,10 +84,18 @@ public class VendOauthContrller extends BaseController {
 		String resultCode = resultMap.get("result_code");
 		if (returnCode.equalsIgnoreCase("SUCCESS")
 				&& resultCode.equalsIgnoreCase("SUCCESS")) {
-			// 下单成功
+			//返回预订单信息。
+			
+			//修改订单状态       这些需要用户支付成功后再修改
+		    //userCash.setStatus(Byte.valueOf(Constant.ALIPAY_SUCCESS));
+			//commMemCashService.updateByPrimaryKeySelective(userCash);
+			//商品的销售量加1
 		} else {
 			// 下单失败
-
+			//修改订单状态 这些需要用户支付成功后再修改
+			//userCash.setStatus(Byte.valueOf(Constant.ALIPAY_FAIL));
+			//commMemCashService.updateByPrimaryKeySelective(userCash);
+			
 		}
 
 		return result;

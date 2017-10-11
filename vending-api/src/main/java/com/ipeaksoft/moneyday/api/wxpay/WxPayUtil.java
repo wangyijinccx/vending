@@ -82,7 +82,7 @@ public class WxPayUtil {
 	
 		String requestXML = XMLUtil.getRequestXml(parms);// 封装好的请求XML
 		
-		HttpPost httpPost = new HttpPost(WxPayConfig.POST_URL);
+		HttpPost httpPost = new HttpPost(WxPayConfig.UNIFIEDORDER_URL);
         CloseableHttpClient httpclient = HttpClients.custom().setSSLSocketFactory(sslsf).build();
         StringEntity myEntity = new org.apache.http.entity.StringEntity(requestXML, WxPayConfig.CHARSET);
         myEntity.setContentType("text/xml;charset=UTF-8");
